@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: devnetwork-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/devnetwork}
+    username: ${DB_USERNAME:devnetwork}
+    password: ${DB_PASSWORD:devnetwork}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
