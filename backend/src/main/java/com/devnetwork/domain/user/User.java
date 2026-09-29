@@ -14,26 +14,33 @@ public final class User {
     private final UUID id;
     private final String email;
     private final String displayName;
+    private final String passwordHash;
     private final Instant createdAt;
 
-    private User(UUID id, String email, String displayName, Instant createdAt) {
+    private User(UUID id, String email, String displayName, String passwordHash, Instant createdAt) {
         this.id = Objects.requireNonNull(id, "id");
         this.email = normalizeEmail(email);
         this.displayName = validateDisplayName(displayName);
+        this.passwordHash = Objects.requireNonNull(passwordHash, "passwordHash");
         this.createdAt = Objects.requireNonNull(createdAt, "createdAt");
     }
 
-    /** Creates a brand-new user. */
-    public static User register(String email, String displayName) {
-        return new User(UUID.randomUUID(), email, displayName, Instant.now());
+    /** Creates a brand-new user. The password must already be hashed. */
+    public static User register(String email, String displayName, String passwordHash) {
+        return new User(UUID.randomUUID(), email, displayName, passwordHash, Instant.now());
     }
 
     /** Rebuilds an existing user, e.g. when loading from persistence. */
-    public static User restore(UUID id, String email, String displayName, Instant createdAt) {
-        return new User(id, email, displayName, createdAt);
+    public static User restore(UUID id, String email, String displayName, String passwordHash, Instant createdAt) {
+        return new User(id, email, displayName, passwordHash, createdAt);
     }
 
-    private static String normalizeEmail(String email) {
+    /** Returns a copy of this user with a new display name. */
+    public User rename(String newDisplayName) {
+        return new User(id, email, newDisplayName, passwordHash, createdAt);
+    }
+
+    public static String normalizeEmail(String email) {
         if (email == null || !email.contains("@")) {
             throw new IllegalArgumentException("A valid email is required");
         }
@@ -61,6 +68,10 @@ public final class User {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public Instant getCreatedAt() {

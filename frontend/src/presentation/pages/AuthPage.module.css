@@ -1,0 +1,41 @@
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 32px 16px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 400px;
+}
+
+.brand {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.tagline {
+  margin: 4px 0 24px;
+  color: var(--muted);
+}
+
+.notice {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  background: var(--accent-soft);
+  border-radius: 6px;
+}
+
+.switch {
+  margin: 16px 0 0;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.switch a {
+  color: var(--accent);
+  font-weight: 600;
+}

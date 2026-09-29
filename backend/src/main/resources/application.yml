@@ -11,9 +11,31 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: true
+  autoconfigure:
+    # Users are loaded from the database by our own login use case, not a UserDetailsService.
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
 server:
   port: ${PORT:8080}
+  servlet:
+    session:
+      timeout: ${SESSION_TIMEOUT:30m}
+      cookie:
+        name: JSESSIONID
+        http-only: true
+        same-site: lax
+        # Set to true when the app is served over HTTPS.
+        secure: ${SESSION_COOKIE_SECURE:false}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    # Send the XSRF-TOKEN cookie back as a header so "Try it out" works for POST/PUT/DELETE.
+    csrf:
+      enabled: true
+  paths-to-match: /api/**
 
 management:
   endpoints:

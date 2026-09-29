@@ -1,0 +1,42 @@
+.back {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 0.875rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headline {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.bio {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.links a {
+  color: var(--accent);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}

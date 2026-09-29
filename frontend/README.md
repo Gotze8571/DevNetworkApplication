@@ -13,27 +13,29 @@ src/
 │   └── App.tsx
 ├── config/                  # Environment variables
 ├── domain/                  # Entities, validation rules, repository interfaces. No React, no fetch.
-│   └── user/
+│   └── auth/ account/ member/ connection/
 ├── application/             # Use cases. Depend only on domain.
-│   └── user/
 ├── infrastructure/          # I/O: HTTP client, API-backed repositories, DTO mapping
-│   ├── http/
-│   └── user/
+│   ├── http/                #   fetch wrapper: JSON, CSRF header, 401 notifications
+│   └── auth/ account/ member/ connection/
 └── presentation/            # React: pages, components, hooks
+    ├── auth/                #   AuthProvider (session state) and route guards
     ├── pages/
     ├── components/
     └── hooks/
 ```
 
+Routes (`app/App.tsx`): `/login` and `/register` are public. `/members`, `/members/:id`, `/connections` and `/account` require a session. `presentation/auth/AuthProvider` restores the session on load and signs the user out on any `401`.
+
 **Dependency rule:** `presentation` → `application` → `domain` ← `infrastructure`. Components never call `fetch` or a repository directly; they go through a hook, which calls a use case from the container.
 
-Import with the `@/` alias, e.g. `import { User } from '@/domain/user/User'`.
+Import with the `@/` alias, e.g. `import type { Account } from '@/domain/account/Account'`.
 
-### Adding a feature (e.g. `connection`)
+### Adding a feature (e.g. `post`)
 
-1. `domain/connection/` — types, validation, `ConnectionRepository` interface.
-2. `application/connection/` — `createConnectionUseCases(repository)`.
-3. `infrastructure/connection/` — `createHttpConnectionRepository(http)` with DTO mapping.
+1. `domain/post/` — types, validation, `PostRepository` interface.
+2. `application/postUseCases.ts` — `createPostUseCases(repository)`.
+3. `infrastructure/post/` — `createHttpPostRepository(http)` with DTO mapping.
 4. Register it in `app/container.ts`.
 5. `presentation/` — a hook plus the pages/components that use it.
 

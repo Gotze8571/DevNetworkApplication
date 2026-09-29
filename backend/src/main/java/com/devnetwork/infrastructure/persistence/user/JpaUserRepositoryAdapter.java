@@ -4,6 +4,7 @@ import com.devnetwork.domain.user.User;
 import com.devnetwork.domain.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,6 +32,11 @@ class JpaUserRepositoryAdapter implements UserRepository {
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        return jpaRepository.findByEmail(email).map(UserJpaEntity::toDomain);
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
         return jpaRepository.existsByEmail(email);
     }
@@ -38,5 +44,10 @@ class JpaUserRepositoryAdapter implements UserRepository {
     @Override
     public List<User> findAll() {
         return jpaRepository.findAll().stream().map(UserJpaEntity::toDomain).toList();
+    }
+
+    @Override
+    public List<User> findAllById(Collection<UUID> ids) {
+        return jpaRepository.findAllById(ids).stream().map(UserJpaEntity::toDomain).toList();
     }
 }

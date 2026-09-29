@@ -25,6 +25,9 @@ public class UserJpaEntity {
     @Column(name = "display_name", nullable = false, length = 100)
     private String displayName;
 
+    @Column(name = "password_hash", nullable = false, length = 100)
+    private String passwordHash;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
@@ -36,11 +39,12 @@ public class UserJpaEntity {
         entity.id = user.getId();
         entity.email = user.getEmail();
         entity.displayName = user.getDisplayName();
+        entity.passwordHash = user.getPasswordHash();
         entity.createdAt = user.getCreatedAt();
         return entity;
     }
 
     User toDomain() {
-        return User.restore(id, email, displayName, createdAt);
+        return User.restore(id, email, displayName, passwordHash, createdAt);
     }
 }
