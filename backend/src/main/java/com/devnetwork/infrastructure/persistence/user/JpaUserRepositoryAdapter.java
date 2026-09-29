@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * Adapter: implements the domain's {@link UserRepository} port using Spring Data JPA.
- */
 @Repository
 class JpaUserRepositoryAdapter implements UserRepository {
 
