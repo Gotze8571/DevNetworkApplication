@@ -5,7 +5,7 @@ A developer networking app built with **React + TypeScript** (frontend), **Java 
 ```
 .
 ├── frontend/            # React + TypeScript (Vite)
-├── backend/             # Java 21 + Spring Boot 3
+├── backend/             # Java 25 + Spring Boot 3
 ├── database/            # Database notes and conventions
 ├── docker-compose.yml   # Runs database + backend + frontend together
 └── README.md
@@ -50,16 +50,16 @@ Install the tools for the option you'll use:
 | Tool | Version | Needed for | Install |
 |---|---|---|---|
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | any recent | A and B | macOS: `brew install --cask docker-desktop` |
-| JDK | 21 | B (backend) | macOS: `brew install openjdk@21` |
+| JDK | 25 | B (backend) | macOS: `brew install openjdk@25` |
 | Maven | 3.9+ | B (backend) | macOS: `brew install maven` |
 | Node.js | 20+ | B (frontend) | macOS: `brew install node@20`, or [nvm](https://github.com/nvm-sh/nvm) |
 
 On Windows or Linux, install the same versions from [Adoptium](https://adoptium.net/) (JDK), [maven.apache.org](https://maven.apache.org/download.cgi) and [nodejs.org](https://nodejs.org/).
 
-**Point Maven at JDK 21.** Homebrew's Maven uses the newest JDK by default, so add this to `~/.zshrc` (or `~/.bashrc`) and open a new terminal:
+**Point Maven at JDK 25.** Homebrew's Maven uses the newest JDK by default, so add this to `~/.zshrc` (or `~/.bashrc`) and open a new terminal:
 
 ```bash
-export JAVA_HOME=/opt/homebrew/opt/openjdk@21   # Intel Macs: /usr/local/opt/openjdk@21
+export JAVA_HOME=/opt/homebrew/opt/openjdk@25   # Intel Macs: /usr/local/opt/openjdk@25
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
 
@@ -67,8 +67,8 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ```bash
 docker info --format '{{.ServerVersion}}'   # prints a version, not "Cannot connect"
-java -version                                 # 21.x
-mvn -v                                        # shows "Java version: 21"
+java -version                                 # 25.x
+mvn -v                                        # shows "Java version: 25"
 node -v                                       # v20 or newer
 ```
 
@@ -168,7 +168,7 @@ In Option B, stop the backend and frontend with `Ctrl+C` in their terminals.
 |---|---|
 | `Cannot connect to the Docker daemon` | Start Docker Desktop and wait until it says it's running. |
 | `port is already allocated` / `Address already in use` | Something else is using 5432, 8080, 3000 or 5173. Stop it (e.g. a local PostgreSQL: `brew services stop postgresql`), or find it with `lsof -i :8080`. |
-| Maven fails with `release version 21 not supported`, or uses the wrong Java | `JAVA_HOME` isn't pointing at JDK 21. See **Point Maven at JDK 21** above; `mvn -v` should show Java 21. |
+| Maven fails with `release version 25 not supported`, or uses the wrong Java | `JAVA_HOME` isn't pointing at JDK 25. See **Point Maven at JDK 25** above; `mvn -v` should show Java 25. |
 | Backend fails with `Connection refused` to `localhost:5432` | The database isn't running: `docker compose up -d database`. |
 | Backend fails with a Flyway `validate` / checksum error | An already-applied migration was edited. For local data you can discard, reset with `docker compose down -v`. |
 | Frontend shows "You need to sign in" or goes back to the login page | Sessions last 30 minutes idle and are lost when the backend restarts. Sign in again. |

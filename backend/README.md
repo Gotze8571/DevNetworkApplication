@@ -1,4 +1,4 @@
-# Backend — Java 21 + Spring Boot 3
+# Backend — Java 25 + Spring Boot 3
 
 REST API for DevNetwork, organised with Clean Architecture.
 
@@ -33,7 +33,7 @@ src/main/java/com/devnetwork/
 
 ## Running locally
 
-Requires JDK 21 and Maven (`brew install openjdk@21 maven`, with `JAVA_HOME=/opt/homebrew/opt/openjdk@21`), plus a running database (`docker compose up database` from the repo root).
+Requires JDK 25 and Maven (`brew install openjdk@25 maven`, with `JAVA_HOME=/opt/homebrew/opt/openjdk@25`), plus a running database (`docker compose up database` from the repo root).
 
 ```bash
 mvn spring-boot:run

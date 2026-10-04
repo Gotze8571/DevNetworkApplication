@@ -1,4 +1,4 @@
-FROM maven:3.9-eclipse-temurin-21 AS build
+FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /app
 COPY pom.xml .
 # The cache mount keeps downloaded dependencies between builds. Maven doesn't retry failed TLS
@@ -9,7 +9,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 \
     mvn -q package -DskipTests || mvn -q package -DskipTests
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:25-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
