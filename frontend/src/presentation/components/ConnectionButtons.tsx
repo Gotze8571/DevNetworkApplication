@@ -32,7 +32,7 @@ export function ConnectionButtons({ memberId, connection, actions }: Props) {
   if (!connection) {
     buttons = (
       <button type="button" className={ui.button} disabled={busy} onClick={() => run(() => actions.request(memberId))}>
-        Connect
+        Add member
       </button>
     );
   } else if (connection.state === 'INCOMING') {
@@ -64,12 +64,12 @@ export function ConnectionButtons({ memberId, connection, actions }: Props) {
           className={ui.danger}
           disabled={busy}
           onClick={() => {
-            if (window.confirm(`Remove ${connection.member.displayName} from your connections?`)) {
+            if (window.confirm(`Delete ${connection.member.displayName} from your network?`)) {
               void run(() => actions.remove(connection.id));
             }
           }}
         >
-          Remove
+          Delete member
         </button>
       </>
     );

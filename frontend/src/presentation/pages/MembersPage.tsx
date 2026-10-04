@@ -15,7 +15,7 @@ export function MembersPage() {
   return (
     <>
       <h1 className={ui.pageTitle}>Members</h1>
-      <p className={ui.muted}>Find developers and send them a connection request.</p>
+      <p className={ui.muted}>Find developers and add them to your network.</p>
 
       <section className={ui.section}>
         {loading && <p className={ui.muted}>Loading…</p>}
